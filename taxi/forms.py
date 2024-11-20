@@ -55,6 +55,11 @@ def validate_license_number(
 class SearchForm(forms.Form):
     search = forms.CharField(
         required=False,
+        widget=forms.TextInput(),
         label="",
-        widget=forms.TextInput(attrs={"placeholder": "Search..."}),
     )
+
+    def __init__(self, *args, **kwargs):
+        placeholder = kwargs.pop("placeholder", "Search...")
+        super().__init__(*args, **kwargs)
+        self.fields["search"].widget.attrs["placeholder"] = placeholder
